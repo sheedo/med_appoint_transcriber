@@ -1,117 +1,275 @@
-<!doctype html>
+<!DOCTYPE HTML>
+<html>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-    crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-    crossorigin="anonymous">
+<head>
+	<title>Prologue by HTML5 UP</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	    crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	    crossorigin="anonymous">
+	<link rel="stylesheet" href="static/assets/css/main.css" />
+</head>
 
-<center>
+<body>
+	<!-- Header -->
+	<div id="header">
 
-    <h3> Medical Recordy Thingy </h3>
+		<div class="top">
 
-    <p>
-        Email Address:
-        <input type="text" id="email_form_result" value="">
-    </p>
+			<!-- Logo -->
+			<div id="logo">
+				<span class="image avatar48"><img src="static/images/avatar2.jpg" alt="" /></span>
+				<h1 id="title">Dr.Bob Smith</h1>
+				<p>Anesthesiologist Doctor</p>
+			</div>
 
-    <div class="left">
-        <button id='start_button' onclick="start_button(event)">
-    Start Recording
-  </button>
+			<!-- Nav -->
+			<nav id="nav">
+				<ul>
+					<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Intro</span></a></li>
+					<li><a href="#portfolio" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-th">History</span></a></li>
+				</ul>
+			</nav>
+		</div>
 
-        <button id='clear_recording' onclick="clear_recording()">
-    Clear Recording
-  </button>
+		<div class="bottom">
+			<ul class="icons">
+				<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+				<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+				<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+				<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+			</ul>
+		</div>
 
-        <button id='send_recording' onclick="send_recording()">
-    Send Recording
-  </button>
-    </div>
+	</div>
 
-    <div class="container">
-        <h4> What I heard: </h4>
-        <div class="panel panel-default" id="results">
-            <div class="panel-body">
-                <span id="results_span" , class="final"></span>
-            </div>
-        </div>
-    </div>
+	<!-- Main -->
+	<div id="main">
 
-</center>
+		<!-- Intro -->
+		<section id="top" class="one dark cover">
+			<div class="container">
 
-<script type="text/javascript">
-    if (!('webkitSpeechRecognition' in window)) {
-        alert("webkitSpeechRecognition isn't available; please upgrade to chrome or bother erik to fix this...");
-    }
+				<header>
+					<h2 class="alt"><strong>Medical Recordy Thingy</strong></h2>
+					<p>
+						<div class="left">
+							<button id='start_button' onclick="start_button(event)">
+							Start Recording
+						</button>
 
-    var interm_transcript = '';
-    var final_transcript = '';
-    var email = '';
+							<button id='clear_recording' onclick="clear_recording()">
+							Clear Recording
+						</button>
 
-    var r = new webkitSpeechRecognition();
+							<button id='send_recording' onclick="send_recording()">
+							Send Recording
+						</button>
+						</div>
 
-    r.continuous = true;
-    r.interimResults = true;
+						<div class="container">
+							<h4> What I heard: </h4>
+							<div class="panel panel-default" id="results">
+								<div class="panel-body">
+									<span id="results_span" , class="final"></span>
+								</div>
+							</div>
+						</div>
+					</p>
+				</header>
 
-    r.onstart = function () {};
-    r.onend = function () {};
+				<!--<footer>
+					<a href="#portfolio" class="button scrolly">Magna Aliquam</a>
+				</footer>-->
 
-    r.onresult = function (e) {
-        interm_transcript = '';
+			</div>
+		</section>
 
-        for (var i = e.resultIndex; i < e.results.length; ++i) {
-            if (!e.results[i].isFinal) {
-                interm_transcript += e.results[i][0].transcript;
-            }
-        }
+		<!-- Portfolio -->
+		<!--<section id="portfolio" class="two">
+			<div class="container">
 
-        if (interm_transcript !== "") {
-            set_transcript_text(interm_transcript);
-        }
+				<header>
+					<h2>History</h2>
+				</header>
 
-        console.log("interm = " + interm_transcript);
-    };
+				<p>Sunil - Tylenol - Q(1) - F(Monday) - Time(Night)</p>
 
-    r.onerror = function () {
-        alert("an error occured, fyi");
-    };
+				<div class="row">
+					<div class="4u 12u$(mobile)">
+						<article class="item">
+							<a href="#" class="image fit"><img src="static/images/pic02.jpg" alt="" /></a>
+							<header>
+								<h3>Ipsum Feugiat</h3>
+							</header>
+						</article>
+						<article class="item">
+							<a href="#" class="image fit"><img src="static/images/pic03.jpg" alt="" /></a>
+							<header>
+								<h3>Rhoncus Semper</h3>
+							</header>
+						</article>
+					</div>
+					<div class="4u 12u$(mobile)">
+						<article class="item">
+							<a href="#" class="image fit"><img src="static/images/pic04.jpg" alt="" /></a>
+							<header>
+								<h3>Magna Nullam</h3>
+							</header>
+						</article>
+						<article class="item">
+							<a href="#" class="image fit"><img src="static/images/pic05.jpg" alt="" /></a>
+							<header>
+								<h3>Natoque Vitae</h3>
+							</header>
+						</article>
+					</div>
+					<div class="4u$ 12u$(mobile)">
+						<article class="item">
+							<a href="#" class="image fit"><img src="static/images/pic06.jpg" alt="" /></a>
+							<header>
+								<h3>Dolor Penatibus</h3>
+							</header>
+						</article>
+						<article class="item">
+							<a href="#" class="image fit"><img src="static/images/pic07.jpg" alt="" /></a>
+							<header>
+								<h3>Orci Convallis</h3>
+							</header>
+						</article>
+					</div>
+				</div>
+			</div>
+		</section>-->
 
-    var running = false;
 
-    function set_transcript_text(text) {
-        results_span.innerHTML = text;
-    }
+		<section id="contact" class="four">
+			<div class="container">
 
-    function post_transcript(transcript, email) {
-        // FIXME: make this call/ret async
-        var request = new XMLHttpRequest();
-        request.open("GET", "/upload_it?data=" + escape(transcript) +
-            '&email=' + escape(email), false);
-        request.send();
-        return request.responseText;
-    }
+				<header>
+					<h2>Contact</h2>
+				</header>
 
-    function start_button() {
-        if (running) {
-            r.stop();
-            document.getElementById('start_button').innerHTML = "Start Recording";
-            final_transcript = interm_transcript;
-            set_transcript_text(final_transcript);
-            email = document.getElementById("email_form_result").value;
-        } else {
-            clear_recording();
-            r.start();
-            document.getElementById('start_button').innerHTML = "Finish Recording";
-        }
-        running = !running;
-    }
+				<p>Enter the patient Email Address. The Transcribed information below will be sent to the email address provided.
+				</p>
 
-    function clear_recording() {
-        final_transcript = '';
-        set_transcript_text("");
-    }
+				<form method="post" action="#">
+					<div class="row">
+						<div class="6u 12u$(mobile)"><input type="text" name="name" placeholder="Name" /></div>
+						<div class="6u$ 12u$(mobile)"><input type="text" id="email_form_result" name="email" placeholder="Email" /></div>
+						<div class="12u$">
+							<textarea name="message" placeholder="Transcribed Text"></textarea>
+						</div>
+						<div class="12u$">
+							<input type="submit" value="Send Message" />
+						</div>
+					</div>
+				</form>
 
-    function send_recording() {
-        post_transcript(final_transcript, email);
-    }
-</script>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<div id="footer">
+
+		<!-- Copyright -->
+		<ul class="copyright">
+			<li>&copy; Untitled. All rights reserved.</li>
+			<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="static/assets/js/jquery.min.js"></script>
+	<script src="static/assets/js/jquery.scrolly.min.js"></script>
+	<script src="static/assets/js/jquery.scrollzer.min.js"></script>
+	<script src="static/assets/js/skel.min.js"></script>
+	<script src="static/assets/js/util.js"></script>
+	<script src="static/assets/js/main.js"></script>
+
+	<script type="text/javascript">
+		if (!('webkitSpeechRecognition' in window)) {
+			alert("webkitSpeechRecognition isn't available; please upgrade to chrome or bother erik to fix this...");
+		}
+
+		var interm_transcript = '';
+		var final_transcript = '';
+		var email = '';
+
+		var r = new webkitSpeechRecognition();
+
+		r.continuous = true;
+		r.interimResults = true;
+
+		r.onstart = function () {};
+		r.onend = function () {};
+
+		r.onresult = function (e) {
+			interm_transcript = '';
+
+			for (var i = e.resultIndex; i < e.results.length; ++i) {
+				if (!e.results[i].isFinal) {
+					interm_transcript += e.results[i][0].transcript;
+				}
+			}
+
+			if (interm_transcript !== "") {
+				set_transcript_text(interm_transcript);
+			}
+
+			console.log("interm = " + interm_transcript);
+		};
+
+		r.onerror = function () {
+			alert("an error occured, fyi");
+		};
+
+		var running = false;
+
+		function set_transcript_text(text) {
+			results_span.innerHTML = "<font color='black'>"+text+"</font>";
+		}
+
+		function post_transcript(transcript, email) {
+			// FIXME: make this call/ret async
+			var request = new XMLHttpRequest();
+			request.open("GET", "/upload_it?data=" + escape(transcript) +
+				'&email=' + escape(email), false);
+			request.send();
+			return request.responseText;
+		}
+
+		function start_button() {
+			if (running) {
+				r.stop();
+				document.getElementById('start_button').innerHTML = "Start Recording";
+				final_transcript = interm_transcript;
+				set_transcript_text(final_transcript);
+				email = document.getElementById("email_form_result").value;
+			} else {
+				clear_recording();
+				r.start();
+				document.getElementById('start_button').innerHTML = "Finish Recording";
+			}
+			running = !running;
+		}
+
+		function clear_recording() {
+			final_transcript = '';
+			set_transcript_text("");
+		}
+
+		function send_recording() {
+			post_transcript(final_transcript, email);
+		}
+	</script>
+
+</body>
+
+</html>
