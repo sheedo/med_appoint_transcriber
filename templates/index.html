@@ -1,3 +1,68 @@
 <!doctype html>
 
 <h1> herlo </h1>
+
+    <div class="left">
+      <button id='start_button' onclick="startButton(event)">
+        <img id = "start_img" src={{ button }}>
+      </button>
+    </div>
+
+<script type="text/javascript">
+
+if (!('webkitSpeechRecognition' in window)) {
+    alert("webkitSpeechRecognition isn't available; please upgrade to chrome or bother erik to fix this...");
+}
+
+// var final_transcript = '';
+var interm_transcript = '';
+
+var r = new webkitSpeechRecognition();
+
+r.continuous = true;
+r.interimResults = true;
+
+r.onstart = function() {};
+r.onend = function() {
+    // console.log(so_far);
+};
+
+r.onresult = function(e) {
+    interm_transcript = '';
+
+    for (var i = e.resultIndex; i < e.results.length; ++i) {
+        if (e.results[i].isFinal) {
+           // final_transcript += e.results[i][0].transcript;
+        } else {
+            interm_transcript += e.results[i][0].transcript;
+        }
+    }
+
+    console.log("interm = " + interm_transcript);
+    // console.log("final = " + final_transcript);
+};
+
+r.onerror = function() {
+    alert("an error occured, fyi");
+};
+
+var running = false;
+
+function post_transcript(transcript) {
+    // This is beautiful.
+    (new Image).src = '{{ url }}upload_it?data=' + escape(transcript);
+}
+
+function startButton() {
+    if (running) {
+        r.stop();
+        var final_transcript = interm_transcript;
+        running = false;
+        post_transcript(final_transcript);
+    } else {
+        running = true;
+        r.start();
+    }
+}
+
+</script>
