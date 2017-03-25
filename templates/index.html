@@ -1,12 +1,21 @@
 <!doctype html>
 
-<h1> herlo </h1>
+<h3> Medical Recordy Thingy </h3>
 
-    <div class="left">
-      <button id='start_button' onclick="startButton(event)">
-        <img id = "start_img" src={{ button }}>
-      </button>
-    </div>
+<div class="left">
+  <button id='start_button' onclick="start_button(event)">
+    <!--
+        <img id="start_img" src="/static/button.jpg">
+        -->
+    Start Recording
+  </button>
+</div>
+
+<div class="center" id="results">
+  <p>
+    <span id="results_span", class="final"></span>
+  </p>
+</div>
 
 <script type="text/javascript">
 
@@ -14,7 +23,6 @@ if (!('webkitSpeechRecognition' in window)) {
     alert("webkitSpeechRecognition isn't available; please upgrade to chrome or bother erik to fix this...");
 }
 
-// var final_transcript = '';
 var interm_transcript = '';
 
 var r = new webkitSpeechRecognition();
@@ -23,23 +31,22 @@ r.continuous = true;
 r.interimResults = true;
 
 r.onstart = function() {};
-r.onend = function() {
-    // console.log(so_far);
-};
+r.onend = function() {};
 
 r.onresult = function(e) {
     interm_transcript = '';
 
     for (var i = e.resultIndex; i < e.results.length; ++i) {
-        if (e.results[i].isFinal) {
-           // final_transcript += e.results[i][0].transcript;
-        } else {
+        if (!e.results[i].isFinal) {
             interm_transcript += e.results[i][0].transcript;
         }
     }
 
+    if (interm_transcript !== "") {
+        set_transcript_text(interm_transcript);
+    }
+
     console.log("interm = " + interm_transcript);
-    // console.log("final = " + final_transcript);
 };
 
 r.onerror = function() {
@@ -48,20 +55,26 @@ r.onerror = function() {
 
 var running = false;
 
+function set_transcript_text(text) { results_span.innerHTML = text; }
+
 function post_transcript(transcript) {
     // This is beautiful.
     (new Image).src = '{{ url }}upload_it?data=' + escape(transcript);
 }
 
-function startButton() {
+function start_button() {
     if (running) {
         r.stop();
+        document.getElementById('start_button').innerHTML = "Start Recording";
         var final_transcript = interm_transcript;
         running = false;
+        set_transcript_text(final_transcript);
         post_transcript(final_transcript);
     } else {
-        running = true;
+        set_transcript_text("");
         r.start();
+        document.getElementById('start_button').innerHTML = "Finish Recording";
+        running = true;
     }
 }
 
