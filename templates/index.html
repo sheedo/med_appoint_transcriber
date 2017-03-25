@@ -9,22 +9,19 @@
 	    crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
 	    crossorigin="anonymous">
-	<link rel="stylesheet" href="static/assets/css/main.css" />
+	<link rel="stylesheet" href="../static/assets/css/main.css" />
 </head>
 
 <body>
 	<!-- Header -->
 	<div id="header">
-
 		<div class="top">
-
 			<!-- Logo -->
 			<div id="logo">
-				<span class="image avatar48"><img src="static/images/avatar2.jpg" alt="" /></span>
+				<span class="image avatar48"><img src="../static/images/avatar2.jpg" alt="" /></span>
 				<h1 id="title">Dr.Bob Smith</h1>
 				<p>Anesthesiologist Doctor</p>
 			</div>
-
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
@@ -33,7 +30,6 @@
 				</ul>
 			</nav>
 		</div>
-
 		<div class="bottom">
 			<ul class="icons">
 				<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
@@ -52,7 +48,6 @@
 		<!-- Intro -->
 		<section id="top" class="one dark cover">
 			<div class="container">
-
 				<header>
 					<h2 class="alt"><strong>Medical Recordy Thingy</strong></h2>
 					<p>
@@ -65,9 +60,9 @@
 							Clear Recording
 						</button>
 
-							<button id='send_recording' onclick="send_recording()">
+                        <!--<button id='send_recording' onclick="send_recording()">
 							Send Recording
-						</button>
+						</button>-->
 						</div>
 
 						<div class="container">
@@ -161,10 +156,10 @@
 						<div class="6u 12u$(mobile)"><input type="text" name="name" placeholder="Name" /></div>
 						<div class="6u$ 12u$(mobile)"><input type="text" id="email_form_result" name="email" placeholder="Email" /></div>
 						<div class="12u$">
-							<textarea name="message" placeholder="Transcribed Text"></textarea>
+							<textarea id="tran_message" name="message" placeholder="Transcribed Text"></textarea>
 						</div>
 						<div class="12u$">
-							<input type="submit" value="Send Message" />
+							<input type="button" value="Send Message" onclick="post_transcript()"/>
 						</div>
 					</div>
 				</form>
@@ -192,6 +187,8 @@
 	<script src="static/assets/js/skel.min.js"></script>
 	<script src="static/assets/js/util.js"></script>
 	<script src="static/assets/js/main.js"></script>
+    <!--JQUERY-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
 	<script type="text/javascript">
 		if (!('webkitSpeechRecognition' in window)) {
@@ -222,8 +219,6 @@
 			if (interm_transcript !== "") {
 				set_transcript_text(interm_transcript);
 			}
-
-			console.log("interm = " + interm_transcript);
 		};
 
 		r.onerror = function () {
@@ -236,13 +231,25 @@
 			results_span.innerHTML = "<font color='black'>"+text+"</font>";
 		}
 
-		function post_transcript(transcript, email) {
-			// FIXME: make this call/ret async
-			var request = new XMLHttpRequest();
-			request.open("GET", "/upload_it?data=" + escape(transcript) +
-				'&email=' + escape(email), false);
-			request.send();
-			return request.responseText;
+		function post_transcript() {
+            if(!$('#tran_message').val()) return alert("No transcirbed text");
+            if(!($('#email_form_result').val())) return alert("No email provided");
+             $.ajax({
+                    type: "GET",
+                    url: "/upload_it",
+                    data: "email=" + $('#email_form_result').val() + "&data=" + $('#tran_message').val(),
+                    success: function(res) {
+                        console.log(res);
+                    },
+                    error: function(err) {
+                        console.log(err);
+                        alert("ERR : " + JSON.stringify(err));
+                    }
+                });
+			// request.open("GET", "/upload_it?data=" + escape(transcript) +
+			// 	'&email=' + escape(email), false);
+			// request.send();
+			// return request.responseText;
 		}
 
 		function start_button() {
@@ -251,7 +258,8 @@
 				document.getElementById('start_button').innerHTML = "Start Recording";
 				final_transcript = interm_transcript;
 				set_transcript_text(final_transcript);
-				email = document.getElementById("email_form_result").value;
+                $('#tran_message').val(final_transcript);
+				// email = document.getElementById("email_form_result").value;
 			} else {
 				clear_recording();
 				r.start();
@@ -265,9 +273,9 @@
 			set_transcript_text("");
 		}
 
-		function send_recording() {
-			post_transcript(final_transcript, email);
-		}
+		// function send_recording() {
+		// 	post_transcript(final_transcript, email);
+		// }
 	</script>
 
 </body>
