@@ -1,25 +1,41 @@
 <!doctype html>
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<center>
+
 <h3> Medical Recordy Thingy </h3>
+
+<p>
+  Email Address:
+  <input type="text" id="email_form_result" value="">
+</p>
 
 <div class="left">
   <button id='start_button' onclick="start_button(event)">
-    <!--
-        <img id="start_img" src="/static/button.jpg">
-        -->
     Start Recording
+  </button>
+
+  <button id='clear_recording' onclick="clear_recording()">
+    Clear Recording
+  </button>
+
+  <button id='send_recording' onclick="send_recording()">
+    Send Recording
   </button>
 </div>
 
-    <p> Email Address:
-    <input type="text" id="email_form_result" value="">
-    </p>
-
-<div class="center" id="results">
-  <p>
-    <span id="results_span", class="final"></span>
-  </p>
+<div class="container">
+  <h4> What I heard: </h4>
+  <div class="panel panel-default" id="results">
+    <div class="panel-body">
+      <span id="results_span", class="final"></span>
+    </div>
+  </div>
 </div>
+
+</center>
 
 <script type="text/javascript">
 
@@ -28,6 +44,8 @@ if (!('webkitSpeechRecognition' in window)) {
 }
 
 var interm_transcript = '';
+var final_transcript = '';
+var email = '';
 
 var r = new webkitSpeechRecognition();
 
@@ -74,16 +92,24 @@ function start_button() {
     if (running) {
         r.stop();
         document.getElementById('start_button').innerHTML = "Start Recording";
-        var final_transcript = interm_transcript;
+        final_transcript = interm_transcript;
         set_transcript_text(final_transcript);
         email = document.getElementById("email_form_result").value;
-        post_transcript(final_transcript, email);
     } else {
-        set_transcript_text("");
+        clear_recording();
         r.start();
         document.getElementById('start_button').innerHTML = "Finish Recording";
     }
     running = !running;
+}
+
+function clear_recording() {
+    final_transcript = '';
+    set_transcript_text("");
+}
+
+function send_recording() {
+    post_transcript(final_transcript, email);
 }
 
 </script>
