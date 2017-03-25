@@ -11,6 +11,10 @@
   </button>
 </div>
 
+    <p> Email Address:
+    <input type="text" id="email_form_result" value="">
+    </p>
+
 <div class="center" id="results">
   <p>
     <span id="results_span", class="final"></span>
@@ -57,9 +61,13 @@ var running = false;
 
 function set_transcript_text(text) { results_span.innerHTML = text; }
 
-function post_transcript(transcript) {
-    // This is beautiful.
-    (new Image).src = '{{ url }}upload_it?data=' + escape(transcript);
+function post_transcript(transcript, email) {
+    // FIXME: make this call/ret async
+    var request = new XMLHttpRequest();
+    request.open("GET", "/upload_it?data=" + escape(transcript) +
+                 '&email=' + escape(email) , false);
+    request.send();
+    return request.responseText;
 }
 
 function start_button() {
@@ -67,15 +75,15 @@ function start_button() {
         r.stop();
         document.getElementById('start_button').innerHTML = "Start Recording";
         var final_transcript = interm_transcript;
-        running = false;
         set_transcript_text(final_transcript);
-        post_transcript(final_transcript);
+        email = document.getElementById("email_form_result").value;
+        post_transcript(final_transcript, email);
     } else {
         set_transcript_text("");
         r.start();
         document.getElementById('start_button').innerHTML = "Finish Recording";
-        running = true;
     }
+    running = !running;
 }
 
 </script>
