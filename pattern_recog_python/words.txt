@@ -126,7 +126,6 @@ e
 each
 edu
 eg
-eight
 either
 else
 elsewhere
@@ -296,7 +295,6 @@ never
 nevertheless
 new
 next
-nine
 no
 nobody
 non
