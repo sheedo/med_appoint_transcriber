@@ -1,115 +1,117 @@
 <!doctype html>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
 
 <center>
 
-<h3> Medical Recordy Thingy </h3>
+    <h3> Medical Recordy Thingy </h3>
 
-<p>
-  Email Address:
-  <input type="text" id="email_form_result" value="">
-</p>
+    <p>
+        Email Address:
+        <input type="text" id="email_form_result" value="">
+    </p>
 
-<div class="left">
-  <button id='start_button' onclick="start_button(event)">
+    <div class="left">
+        <button id='start_button' onclick="start_button(event)">
     Start Recording
   </button>
 
-  <button id='clear_recording' onclick="clear_recording()">
+        <button id='clear_recording' onclick="clear_recording()">
     Clear Recording
   </button>
 
-  <button id='send_recording' onclick="send_recording()">
+        <button id='send_recording' onclick="send_recording()">
     Send Recording
   </button>
-</div>
-
-<div class="container">
-  <h4> What I heard: </h4>
-  <div class="panel panel-default" id="results">
-    <div class="panel-body">
-      <span id="results_span", class="final"></span>
     </div>
-  </div>
-</div>
+
+    <div class="container">
+        <h4> What I heard: </h4>
+        <div class="panel panel-default" id="results">
+            <div class="panel-body">
+                <span id="results_span" , class="final"></span>
+            </div>
+        </div>
+    </div>
 
 </center>
 
 <script type="text/javascript">
+    if (!('webkitSpeechRecognition' in window)) {
+        alert("webkitSpeechRecognition isn't available; please upgrade to chrome or bother erik to fix this...");
+    }
 
-if (!('webkitSpeechRecognition' in window)) {
-    alert("webkitSpeechRecognition isn't available; please upgrade to chrome or bother erik to fix this...");
-}
+    var interm_transcript = '';
+    var final_transcript = '';
+    var email = '';
 
-var interm_transcript = '';
-var final_transcript = '';
-var email = '';
+    var r = new webkitSpeechRecognition();
 
-var r = new webkitSpeechRecognition();
+    r.continuous = true;
+    r.interimResults = true;
 
-r.continuous = true;
-r.interimResults = true;
+    r.onstart = function () {};
+    r.onend = function () {};
 
-r.onstart = function() {};
-r.onend = function() {};
+    r.onresult = function (e) {
+        interm_transcript = '';
 
-r.onresult = function(e) {
-    interm_transcript = '';
-
-    for (var i = e.resultIndex; i < e.results.length; ++i) {
-        if (!e.results[i].isFinal) {
-            interm_transcript += e.results[i][0].transcript;
+        for (var i = e.resultIndex; i < e.results.length; ++i) {
+            if (!e.results[i].isFinal) {
+                interm_transcript += e.results[i][0].transcript;
+            }
         }
+
+        if (interm_transcript !== "") {
+            set_transcript_text(interm_transcript);
+        }
+
+        console.log("interm = " + interm_transcript);
+    };
+
+    r.onerror = function () {
+        alert("an error occured, fyi");
+    };
+
+    var running = false;
+
+    function set_transcript_text(text) {
+        results_span.innerHTML = text;
     }
 
-    if (interm_transcript !== "") {
-        set_transcript_text(interm_transcript);
+    function post_transcript(transcript, email) {
+        // FIXME: make this call/ret async
+        var request = new XMLHttpRequest();
+        request.open("GET", "/upload_it?data=" + escape(transcript) +
+            '&email=' + escape(email), false);
+        request.send();
+        return request.responseText;
     }
 
-    console.log("interm = " + interm_transcript);
-};
-
-r.onerror = function() {
-    alert("an error occured, fyi");
-};
-
-var running = false;
-
-function set_transcript_text(text) { results_span.innerHTML = text; }
-
-function post_transcript(transcript, email) {
-    // FIXME: make this call/ret async
-    var request = new XMLHttpRequest();
-    request.open("GET", "/upload_it?data=" + escape(transcript) +
-                 '&email=' + escape(email) , false);
-    request.send();
-    return request.responseText;
-}
-
-function start_button() {
-    if (running) {
-        r.stop();
-        document.getElementById('start_button').innerHTML = "Start Recording";
-        final_transcript = interm_transcript;
-        set_transcript_text(final_transcript);
-        email = document.getElementById("email_form_result").value;
-    } else {
-        clear_recording();
-        r.start();
-        document.getElementById('start_button').innerHTML = "Finish Recording";
+    function start_button() {
+        if (running) {
+            r.stop();
+            document.getElementById('start_button').innerHTML = "Start Recording";
+            final_transcript = interm_transcript;
+            set_transcript_text(final_transcript);
+            email = document.getElementById("email_form_result").value;
+        } else {
+            clear_recording();
+            r.start();
+            document.getElementById('start_button').innerHTML = "Finish Recording";
+        }
+        running = !running;
     }
-    running = !running;
-}
 
-function clear_recording() {
-    final_transcript = '';
-    set_transcript_text("");
-}
+    function clear_recording() {
+        final_transcript = '';
+        set_transcript_text("");
+    }
 
-function send_recording() {
-    post_transcript(final_transcript, email);
-}
-
+    function send_recording() {
+        post_transcript(final_transcript, email);
+    }
 </script>
