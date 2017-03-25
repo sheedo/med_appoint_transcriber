@@ -25,7 +25,7 @@ def clean_sentence(text):
 
 @app.route("/")
 def run_it():
-    return render_template("index.html", url=request.url_root)
+    return render_template("index2.html", url=request.url_root)
 
 @app.route('/upload_it', methods=['GET'])
 def upload_it():
