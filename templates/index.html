@@ -155,9 +155,9 @@
 					<div class="row">
 						<div class="6u 12u$(mobile)"><input type="text" name="name" placeholder="Name" /></div>
 						<div class="6u$ 12u$(mobile)"><input type="text" id="email_form_result" name="email" placeholder="Email" /></div>
-						<div class="12u$">
-							<textarea id="tran_message" name="message" placeholder="Transcribed Text"></textarea>
-						</div>
+						<!-- <div class="12u$"> -->
+						<!-- 	<textarea id="tran_message" name="message" placeholder="Transcribed Text"></textarea> -->
+						<!-- </div> -->
 						<div class="12u$">
 							<input type="submit" value="Send Message"/>
 						</div>
@@ -229,17 +229,17 @@
 		var running = false;
 
 		function set_transcript_text(text) {
-        $('#tran_message').val(final_transcript);
+        // $('#tran_message').val(final_transcript);
         // $('#tran_message').val("two advil morning evening");
         results_span.innerHTML = "<font color='black'>"+text+"</font>";
 		}
 
 		function post_transcript() {
-            if(!$('#tran_message').val()) return alert("No transcirbed text");
+            // if(!$('#tran_message').val()) return alert("No transcirbed text");
             if(!($('#email_form_result').val())) return alert("No email provided");
              $.ajax({
                     type: "GET",
-                    url: "/upload_it?email=" + $('#email_form_result').val() + "&data=" + $('#tran_message').val(),
+                    url: "/upload_it?email=" + $('#email_form_result').val() + "&data=" + final_transcript,
                     success: function(res) {
                         console.log(res);
                     },
