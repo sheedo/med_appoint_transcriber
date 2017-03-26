@@ -44,7 +44,7 @@ def upload_it():
     if (result == None or email_address == None):
         return ""
 
-    call(['php', '-f', 'static/sunilemail.php'])
+    call(['php', '-f', 'static/sunilemail.php', email_address, result])
     return ""
 
 if __name__ == "__main__":

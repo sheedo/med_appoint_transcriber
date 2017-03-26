@@ -1,5 +1,6 @@
 <?php
-$to = "erik.pilkington@gmail.com";
+
+$to = $argv[1];
 $subject = "Pharmacy- Medication Details";
 $message = "DESCRIPTION: Your Prescription medication details from your last doc visit\r\n\r\n\n";
 $location = "Home";
@@ -27,7 +28,8 @@ $message .= "<html>\n";
 $message .= "<body>\n";
 $message .= '<img src="https://evisitmydr.com/dev_new/wp-content/uploads/2015/06/patient-icon.png" alt="Prescription details to add to your calendar" />';
 $message .= '<p>Dear customer, </p>';
-$message .= '<p>Here is the descriptions of medications to be taken. Please click to add it to your calendar event </p>';    
+$message .= '<p>Here is the descriptions of medications to be taken. Please click to add it to your calendar event </p>';
+$message .= '<p>'.$argv[2].'</p>';
 $message .= "</body>\n";
 $message .= "</html>\n";
 $message .= "--$mime_boundary\n";
@@ -55,14 +57,8 @@ $message .= "END:VCALENDAR\r\n\n";
 #$message .= $message;
 //mail($to, $subject, $message, $headers)
 
-// echo $to;
-// echo $subject;
-// echo $message;
- echo $headers;
-
 if(mail($to, $subject, $message, $headers))
 echo "mail sent !!";
 else
 echo "mail not sent !!";
-
 ?>
