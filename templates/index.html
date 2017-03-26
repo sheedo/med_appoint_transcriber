@@ -151,7 +151,7 @@
 				<p>Enter the patient Email Address. The Transcribed information below will be sent to the email address provided.
 				</p>
 
-				<form method="post" action="#">
+				<form method="post" action="../triggercalendar">
 					<div class="row">
 						<div class="6u 12u$(mobile)"><input type="text" name="name" placeholder="Name" /></div>
 						<div class="6u$ 12u$(mobile)"><input type="text" id="email_form_result" name="email" placeholder="Email" /></div>
@@ -159,7 +159,7 @@
 							<textarea id="tran_message" name="message" placeholder="Transcribed Text"></textarea>
 						</div>
 						<div class="12u$">
-							<input type="button" value="Send Message" onclick="post_transcript()"/>
+							<input type="submit" value="Send Message"/>
 						</div>
 					</div>
 				</form>
@@ -235,8 +235,8 @@
             if(!$('#tran_message').val()) return alert("No transcirbed text");
             if(!($('#email_form_result').val())) return alert("No email provided");
              $.ajax({
-                    type: "GET",
-                    url: "/upload_it",
+                    type: "POST",
+                    url: "../triggercalendar.php",
                     data: "email=" + $('#email_form_result').val() + "&data=" + $('#tran_message').val(),
                     success: function(res) {
                         console.log(res);
@@ -246,6 +246,18 @@
                         alert("ERR : " + JSON.stringify(err));
                     }
                 });
+            //  $.ajax({
+            //         type: "GET",
+            //         url: "/upload_it",
+            //         data: "email=" + $('#email_form_result').val() + "&data=" + $('#tran_message').val(),
+            //         success: function(res) {
+            //             console.log(res);
+            //         },
+            //         error: function(err) {
+            //             console.log(err);
+            //             alert("ERR : " + JSON.stringify(err));
+            //         }
+            //     });
 			// request.open("GET", "/upload_it?data=" + escape(transcript) +
 			// 	'&email=' + escape(email), false);
 			// request.send();
