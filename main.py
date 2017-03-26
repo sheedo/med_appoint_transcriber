@@ -1,11 +1,12 @@
 #!/usr/bin/python
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
+from subprocess import call
 import tempfile
 import RAKE
 import re
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='/static')
 
 def clean_sentence(text):
     path = "words.txt"
@@ -27,21 +28,23 @@ def clean_sentence(text):
 def run_it():
     return render_template("index.html", url=request.url_root)
 
+# @app.route('/sunilemail.php')
+# def handle_mail():
+#     return send_from_directory(app.static_folder, request.path[1])
+
+# @app.route('/triggercalendar.php')
+# def handle_calender():
+#     return send_from_directory(app.static_folder, request.path[1])
+
 @app.route('/upload_it', methods=['GET'])
 def upload_it():
     result = request.args.get("data")
     email_address = request.args.get("email")
 
     if (result == None or email_address == None):
-        return
+        return ""
 
-    print "got result: " + result
-    print "with email: " + email_address
-
-    result = clean_sentence(result)
-
-    print "result = " + result;
-
+    call(['php', '-f', 'static/sunilemail.php'])
     return ""
 
 if __name__ == "__main__":

@@ -151,7 +151,7 @@
 				<p>Enter the patient Email Address. The Transcribed information below will be sent to the email address provided.
 				</p>
 
-				<form method="post" action="../triggercalendar">
+				<form onsubmit="post_transcript()">
 					<div class="row">
 						<div class="6u 12u$(mobile)"><input type="text" name="name" placeholder="Name" /></div>
 						<div class="6u$ 12u$(mobile)"><input type="text" id="email_form_result" name="email" placeholder="Email" /></div>
@@ -235,9 +235,8 @@
             if(!$('#tran_message').val()) return alert("No transcirbed text");
             if(!($('#email_form_result').val())) return alert("No email provided");
              $.ajax({
-                    type: "POST",
-                    url: "../triggercalendar.php",
-                    data: "email=" + $('#email_form_result').val() + "&data=" + $('#tran_message').val(),
+                    type: "GET",
+                    url: "/upload_it?email=" + $('#email_form_result').val() + "&data=" + $('#tran_message').val(),
                     success: function(res) {
                         console.log(res);
                     },
