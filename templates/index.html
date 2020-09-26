@@ -5,10 +5,10 @@
 	<title>Prologue by HTML5 UP</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	    crossorigin="anonymous">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	    crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+		integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<link rel="stylesheet" href="../static/assets/css/main.css" />
 </head>
 
@@ -18,15 +18,17 @@
 		<div class="top">
 			<!-- Logo -->
 			<div id="logo">
-				<span class="image avatar48"><img src="../static/images/avatar2.jpg" alt="" /></span>
+				<span class="image avatar48"><img src="../static/images/avatar2.png" alt="" /></span>
 				<h1 id="title">Dr.Bob Smith</h1>
 				<p>Anesthesiologist Doctor</p>
 			</div>
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
-					<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Main</span></a></li>
-					<li><a href="#contact" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Contact</span></a></li>
+					<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span
+								class="icon fa-home">Main</span></a></li>
+					<li><a href="#contact" id="contact-link" class="skel-layers-ignoreHref"><span
+								class="icon fa-envelope">Contact</span></a></li>
 				</ul>
 			</nav>
 		</div>
@@ -46,33 +48,33 @@
 	<div id="main">
 
 		<!-- Intro -->
-		<section id="top" class="one dark cover">
+		<section id="top" class="one dark cover" style="background-image: url('../static/images/banner.jpg');">
 			<div class="container">
 				<header>
-					<h2 class="alt"><strong>Medical Recordy Thingy</strong></h2>
+					<h2 class="alt"><strong>Prescription Transcriber</strong></h2>
 					<p>
-						<div class="left">
-							<button id='start_button' onclick="start_button(event)">
+					<div class="left">
+						<button id='start_button' onclick="start_button(event)">
 							Start Recording
 						</button>
 
-							<button id='clear_recording' onclick="clear_recording()">
+						<button id='clear_recording' onclick="clear_recording()">
 							Clear Recording
 						</button>
 
-                        <!--<button id='send_recording' onclick="send_recording()">
+						<!--<button id='send_recording' onclick="send_recording()">
 							Send Recording
 						</button>-->
-						</div>
+					</div>
 
-						<div class="container">
-							<h4> What I heard: </h4>
-							<div class="panel panel-default" id="results">
-								<div class="panel-body">
-									<span id="results_span" , class="final"></span>
-								</div>
+					<div class="container">
+						<h4> What I heard: </h4>
+						<div class="panel panel-default" id="results">
+							<div class="panel-body">
+								<span id="results_span" , class="final"></span>
 							</div>
 						</div>
+					</div>
 					</p>
 				</header>
 
@@ -148,18 +150,20 @@
 					<h2>Contact</h2>
 				</header>
 
-				<p>Enter the patient Email Address. The Transcribed information below will be sent to the email address provided.
+				<p>Enter the patient Email Address. The Transcribed information below will be sent to the email address
+					provided.
 				</p>
 
 				<form onsubmit="post_transcript()">
 					<div class="row">
 						<div class="6u 12u$(mobile)"><input type="text" name="name" placeholder="Name" /></div>
-						<div class="6u$ 12u$(mobile)"><input type="text" id="email_form_result" name="email" placeholder="Email" /></div>
+						<div class="6u$ 12u$(mobile)"><input type="text" id="email_form_result" name="email"
+								placeholder="Email" /></div>
 						<!-- <div class="12u$"> -->
 						<!-- 	<textarea id="tran_message" name="message" placeholder="Transcribed Text"></textarea> -->
 						<!-- </div> -->
 						<div class="12u$">
-							<input type="submit" value="Send Message"/>
+							<input type="submit" value="Send Message" />
 						</div>
 					</div>
 				</form>
@@ -175,7 +179,7 @@
 		<!-- Copyright -->
 		<ul class="copyright">
 			<li>&copy; Untitled. All rights reserved.</li>
-			<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			<li>Design: <a>Ambient Data Intelligence(ADI)</a></li>
 		</ul>
 
 	</div>
@@ -187,8 +191,8 @@
 	<script src="static/assets/js/skel.min.js"></script>
 	<script src="static/assets/js/util.js"></script>
 	<script src="static/assets/js/main.js"></script>
-    <!--JQUERY-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<!--JQUERY-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
 	<script type="text/javascript">
 		if (!('webkitSpeechRecognition' in window)) {
@@ -204,21 +208,21 @@
 		r.continuous = true;
 		r.interimResults = true;
 
-		r.onstart = function () {};
-		r.onend = function () {};
+		r.onstart = function () { };
+		r.onend = function () { };
 
 		r.onresult = function (e) {
 			interm_transcript = '';
 
 			for (var i = e.resultIndex; i < e.results.length; ++i) {
 				if (!e.results[i].isFinal) {
-					  interm_transcript += e.results[i][0].transcript;
-        }
+					interm_transcript += e.results[i][0].transcript;
+				}
 			}
 
 			if (interm_transcript !== "") {
 				set_transcript_text(interm_transcript);
-        // document.getElementById('tran_message').value = interm_transcript;
+				// document.getElementById('tran_message').value = interm_transcript;
 			}
 		};
 
@@ -229,37 +233,37 @@
 		var running = false;
 
 		function set_transcript_text(text) {
-        // $('#tran_message').val(final_transcript);
-        // $('#tran_message').val("two advil morning evening");
-        results_span.innerHTML = "<font color='black'>"+text+"</font>";
+			// $('#tran_message').val(final_transcript);
+			// $('#tran_message').val("two advil morning evening");
+			results_span.innerHTML = "<font color='black'>" + text + "</font>";
 		}
 
 		function post_transcript() {
-            // if(!$('#tran_message').val()) return alert("No transcirbed text");
-            if(!($('#email_form_result').val())) return alert("No email provided");
-             $.ajax({
-                    type: "GET",
-                    url: "/upload_it?email=" + $('#email_form_result').val() + "&data=" + final_transcript,
-                    success: function(res) {
-                        console.log(res);
-                    },
-                    error: function(err) {
-                        console.log(err);
-                        alert("ERR : " + JSON.stringify(err));
-                    }
-                });
-            //  $.ajax({
-            //         type: "GET",
-            //         url: "/upload_it",
-            //         data: "email=" + $('#email_form_result').val() + "&data=" + $('#tran_message').val(),
-            //         success: function(res) {
-            //             console.log(res);
-            //         },
-            //         error: function(err) {
-            //             console.log(err);
-            //             alert("ERR : " + JSON.stringify(err));
-            //         }
-            //     });
+			// if(!$('#tran_message').val()) return alert("No transcirbed text");
+			if (!($('#email_form_result').val())) return alert("No email provided");
+			$.ajax({
+				type: "GET",
+				url: "/upload_it?email=" + $('#email_form_result').val() + "&data=" + final_transcript,
+				success: function (res) {
+					console.log(res);
+				},
+				error: function (err) {
+					console.log(err);
+					alert("ERR : " + JSON.stringify(err));
+				}
+			});
+			//  $.ajax({
+			//         type: "GET",
+			//         url: "/upload_it",
+			//         data: "email=" + $('#email_form_result').val() + "&data=" + $('#tran_message').val(),
+			//         success: function(res) {
+			//             console.log(res);
+			//         },
+			//         error: function(err) {
+			//             console.log(err);
+			//             alert("ERR : " + JSON.stringify(err));
+			//         }
+			//     });
 			// request.open("GET", "/upload_it?data=" + escape(transcript) +
 			// 	'&email=' + escape(email), false);
 			// request.send();

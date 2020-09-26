@@ -3,26 +3,26 @@
 from flask import Flask, render_template, request, send_from_directory
 from subprocess import call
 import tempfile
-import RAKE
+# import RAKE
 import re
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 
-def clean_sentence(text):
-    path = "words.txt"
-    r = RAKE.Rake(path)
-    k = []
-    for word in text.split("."):
-        k.append(r.run(word))
+# def clean_sentence(text):
+#     path = "words.txt"
+#     r = RAKE.Rake(path)
+#     k = []
+#     for word in text.split("."):
+#         k.append(r.run(word))
 
-    clean_string = []
-    for word in k:
-        clean_string.append(re.sub('[^A-Za-z ]+', '', str(word)))
+#     clean_string = []
+#     for word in k:
+#         clean_string.append(re.sub('[^A-Za-z ]+', '', str(word)))
 
-    result_string = ""
-    for word in clean_string:
-        result_string += word + " "
-    return result_string
+#     result_string = ""
+#     for word in clean_string:
+#         result_string += word + " "
+#     return result_string
 
 @app.route("/")
 def run_it():
